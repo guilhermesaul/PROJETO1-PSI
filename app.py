@@ -3,8 +3,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def cadastro():
-    return render_template('cadastro.html')
+    return render_template('login.html')
 
-@app.route('/home')
+@app.route('/home', methods = ['post'])
 def home():
     return render_template('home.html')
