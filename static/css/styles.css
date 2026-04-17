@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
@@ -19,36 +19,76 @@ section {
 }
 
 #section-esquerda {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+
+  h2 {
+    font-size: 40px;
+  }
+
+  form {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    gap: 30px;
+    width: fit-content;
+    height: fit-content;
+    gap: 15px;
 
-    h2 {
-        font-size: 40px;
+    input {
+      width: 550px;
+      height: 60px;
+      border-radius: 12px;
+      border: 1px solid black;
+      padding: 20px;
     }
 
-    form {
-        display: flex;
-        flex-direction: column;
-        width: fit-content;
-        height: fit-content;
-        gap: 15px;
-
-        input {
-            width: 550px;
-            height: 60px;
-            border-radius: 12px;
-            border: 1px solid black;
-            padding: 20px;
-        }
-
-        #email {
-            background-image: url(../imgs/email.png);
-            background-repeat: no-repeat;
-        }
+    #email {
+      background-image: url(../imgs/email.png);
+      background-repeat: no-repeat;
     }
+
+    .botaoentrar {
+      width: 100%;
+      background-color: #1e78d6;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .links {
+      margin-top: 25px;
+    }
+
+    a {
+      text-decoration: none;
+      color: #1e78d6;
+      font-size: 14px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 14px;
+      color: #777;
+    }
+
+    .semconta {
+      font-weight: bold;
+      display: inline !important;
+    }
+
+    .botaoentrar:hover {
+      background-color: #1669bb;
+    }
+  }
 }
 
 #section-direita {
@@ -63,11 +103,11 @@ section {
     height: fit-content;
 
     h1 {
-        font-size: 40px;
+      font-size: 40px;
     }
 
     p {
-        font-size: 32px;
+      font-size: 32px;
     }
 
     #logo {
@@ -76,16 +116,16 @@ section {
     }
 
     #vantagens {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 30px;
 
-        .vantagem {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+      .vantagem {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
     }
   }
 }
