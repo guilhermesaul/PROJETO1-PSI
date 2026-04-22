@@ -1,18 +1,33 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        {% block title %}
-            
-        {% endblock %}
-    </title>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
-</head>
-<body>
-    {% block content %}
-        
-    {% endblock %}
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %} {% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='css/styles.css')}}"
+    />
+  </head>
+  <body>
+    <header>
+      <div id="logo-navbar">
+        <img src="../static/imgs/logo-azul.png" alt="Logo marca azul" />
+        <nav>
+          <li>
+            <a href="#inicio">Início</a>
+            <a href="#cursos">Cursos</a>
+            <a href="#categorias">Categorias</a>
+            <a href="#sobre">Sobre</a>
+          </li>
+        </nav>
+      </div>
+      <div id="user">
+        <img src="../static/imgs/user.png" alt="Imagem do user" />
+        <h2>User</h2>
+        <img src="../static/imgs/seta-baixo.png" alt="Seta para baixo" />
+      </div>
+    </header>
+    {% block content %} {% endblock %}
+  </body>
 </html>

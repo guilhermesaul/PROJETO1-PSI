@@ -37,21 +37,30 @@ section {
     height: fit-content;
     gap: 15px;
 
-    input {
+    .inputs {
+      display: flex;
+      flex-wrap: wrap;
+      row-gap: 5px;
+      justify-content: space-between;
       width: 550px;
-      height: 60px;
-      border-radius: 12px;
-      border: 1px solid black;
-      padding: 20px;
-    }
 
-    #email {
-      background-image: url(../imgs/email.png);
-      background-repeat: no-repeat;
+      label {
+        font-size: 20px;
+      }
+
+      input {
+        width: 550px;
+        height: 50px;
+        border-radius: 12px;
+        border: 1px solid black;
+        padding: 20px;
+      }
     }
 
     .botaoentrar {
       width: 100%;
+      height: 50px;
+      text-align: center;
       background-color: #1e78d6;
       color: white;
       border: none;
