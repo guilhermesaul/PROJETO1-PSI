@@ -11,18 +11,25 @@
 {% endblock %}
 
 {% block content %}
-    <section
-        class="section1">
-        <h1>Aprenda programação do zero ao avançado</h1>
-        <h2>Domine as tecnologias mais requisitadas do mercado e transforme sua carreira com cursos práticos e completos.
-        </h2> <a> Explorar Cursos</a> <!-- img mulher mexendo not --> <img src="" alt="">
-        <h1> 10.000+ </h1>
-        <p>alunos</p>
-        <h1>200+</h1>
-        <p>cursos</p>
-        <h1> 98% </h1>
-        <p>Satisfação</p>
-    </section>
+   <section class="section1">
+    <div class="conteudosecao1">
+        <h1>Aprenda Programação do Zero ao Avançado</h1>
+        <h2>Domine as tecnologias mais requisitadas do mercado e transforme sua carreira com cursos práticos e completos.</h2>
+        
+        <a href="#" class="butaoexplorar">Explorar cursos</a>
+
+        <div class="estatiscas">
+            <div class="itemestatistica"><h1>10.000+</h1><p>Alunos</p></div>
+            <div class="itemestatistica"><h1>200+</h1><p>Cursos</p></div>
+            <div class="itemestatistica"><h1>98%</h1><p>Satisfação</p></div>
+        </div>
+    </div>
+
+    <div class="imagemmulher">
+        <img src="{{ url_for('static', filename='imgs/mulhernot.jpeg') }}" alt="mulher no notebook">
+    </div>
+</section>
+
     <section class="section2">
         <h1>Cursos em Destaque</h1>
         <p>Os cursos mais populares e bem avaliados</p>

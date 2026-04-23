@@ -1,3 +1,62 @@
+/* Configurações de Cores e Fontes */
 body {
-    background-color: red;
+    background-color: rgb(255, 255, 255);
+}
+:root {
+    --azul-principal: #1b79d4;
+    --blue-footer: #0A1929;
+    --white: #ffffff;
+    
+}
+
+.section1 {
+    background-color: var(--azul-principal);
+    color: var(--white);
+    padding: 60px 20%;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 40px;
+}
+
+.section1 h1 {
+    font-size: 64px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.section1 h2 {
+    font-size: 19px;
+    font-weight: normal;
+    margin-bottom: 30px;
+}
+
+.section1 a {
+    background-color: var(--white);
+    color: var(--azul-principal);
+    padding: 12px 25px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.estatiscas {
+    display: flex;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.itemestatistica h1 {
+    font-size: 32px;
+    margin-bottom: 0;
+}
+
+.itemestatistica p {
+    font-size: 14px;
+}
+
+.section1 img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
