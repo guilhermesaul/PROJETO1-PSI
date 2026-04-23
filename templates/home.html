@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}
-    Home
+    .venv\Scripts\activateHome
 {% endblock %}
 
 {% block css %}
@@ -31,10 +31,13 @@
 </section>
 
     <section class="section2">
+        <div class="cardpesquisa">
         <h1>Cursos em Destaque</h1>
         <p>Os cursos mais populares e bem avaliados</p>
+
         <div class="barrapesquisa"> <input type="search" placeholder="Buscar Cursos por nome, instrutor, categoria...">
-            <button type="submit">Filtros</button> </div>
+        <button class="butaofiltro" type="submit">Filtros</button> </div>
+        </div>
         <div class="cards">
             <div class="card1"> <img src="" alt=""> <button class="categoria">Front-end</button>
                 <p>HTML 5</p>
