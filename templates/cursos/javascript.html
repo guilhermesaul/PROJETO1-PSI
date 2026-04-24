@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Curso HTML5
+{% endblock %}
+
+{% block content %}
+    <main id="main-cursos">
+        <div class="conteudo-cursos">
+            <div class="texto-cursos">
+
+                <h1>JavaScript</h1>
+                <p>
+                    Aprenda a dar vida e interatividade a sites modernos. A linguagem de programação essencial para qualquer desenvolvedor web, focada em dinamismo, lógica e na criação de interfaces inteligentes.
+                </p>
+                <span>Iniciante</span>
+            </div>
+            <div class="estatisticas">
+                <div class="estatistica">
+                    <img src="{{url_for('static', filename='imgs/estrela.png')}}" alt="Estrela">
+                    <p>4.8 (2.589 avaliações)</p>
+                </div>
+                <div class="estatistica">
+                    <img src="{{url_for('static', filename='imgs/estudantes.png')}}" alt="Estudantes">
+                    <p>8.360 Estudantes</p>
+                </div>
+                <div class="estatistica">
+                    <img src="{{url_for('static', filename='imgs/tempo.png')}}" alt="Tempo">
+                    <p>120h</p>
+                </div>
+            </div>
+        </div>
+        <img src="{{url_for('static', filename='imgs/javascript.png')}}" alt="JavaScript" id="img-tecnologia">
+    </main>
+{% endblock %}
