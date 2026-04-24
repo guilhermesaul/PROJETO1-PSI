@@ -18,20 +18,22 @@ body {
 .section1 {
     background-color: var(--azul-principal);
     color: var(--white);
-    padding: 60px 20%;
+    padding: 100px;
     display: flex;
     width: 100%;
     align-items: center;
     gap: 40px;
 }
 
-.section1 h1 {
+.section1 #h1-rapidinho {
+    width: 800px;
     font-size: 64px;
     font-weight: bold;
     margin-bottom: 20px;
 }
 
 .section1 h2 {
+    width: 800px;
     font-size: 19px;
     font-weight: normal;
     margin-bottom: 30px;
