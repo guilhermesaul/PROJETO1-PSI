@@ -16,3 +16,7 @@ def home():
 @app.route('/cursos/html5')
 def html5():
     return render_template('cursos/html5.html')
+
+@app.route('/cursos/javascript')
+def javascript():
+    return render_template('cursos/javascript.html')
