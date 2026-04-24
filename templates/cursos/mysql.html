@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Curso HTML5
+{% endblock %}
+
+{% block content %}
+    <main id="main-cursos">
+        <div class="conteudo-cursos">
+            <div class="texto-cursos">
+
+                <h1>MySQL</h1>
+                <p>
+                    Aprenda a gerenciar e consultar bancos de dados relacionais. A linguagem padrão essencial para desenvolvedores e analistas de dados, focada em organização, performance e manipulação segura de informações.
+                </p>
+                <span>Iniciante</span>
+            </div>
+            <div class="estatisticas">
+                <div class="estatistica">
+                    <img src="{{url_for('static', filename='imgs/estrela.png')}}" alt="Estrela">
+                    <p>4.8 (2.589 avaliações)</p>
+                </div>
+                <div class="estatistica">
+                    <img src="{{url_for('static', filename='imgs/estudantes.png')}}" alt="Estudantes">
+                    <p>8.360 Estudantes</p>
+                </div>
+                <div class="estatistica">
+                    <img src="{{url_for('static', filename='imgs/tempo.png')}}" alt="Tempo">
+                    <p>120h</p>
+                </div>
+            </div>
+        </div>
+        <img src="{{url_for('static', filename='imgs/mysql.png')}}" alt="MySQL" id="img-tecnologia">
+    </main>
+{% endblock %}

@@ -24,3 +24,7 @@ def javascript():
 @app.route('/cursos/python')
 def python():
     return render_template('cursos/python.html')
+
+@app.route('/cursos/mysql')
+def mysql():
+    return render_template('cursos/mysql.html')
