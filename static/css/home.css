@@ -281,3 +281,39 @@ input[type="search"] {
     color: var(--cinza-texto);
     line-height: 1.5;
 }
+
+.cardfeedback {
+    background-color: var(--cinzacards);
+}
+
+.feedbacks h1 {
+    color: var(--azul-principal);
+    font-size: 64px;
+}
+
+.feedbacks p {
+    color: var(--cinza-texto)
+}
+
+.info h1 {
+    color: var(--azul-principal);
+    font-size: 48px;
+}
+
+.info p {
+    font-size: 32px;
+}
+
+.cta {
+    background-color: var(--azul-principal);
+}
+
+.cta h1 {
+    color: var(--white);
+    font-size: 64 px;
+}
+
+.cta p {
+    color: var(--white);
+    font-size: 32 px;
+}
