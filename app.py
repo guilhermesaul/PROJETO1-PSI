@@ -20,3 +20,7 @@ def html5():
 @app.route('/cursos/javascript')
 def javascript():
     return render_template('cursos/javascript.html')
+
+@app.route('/cursos/python')
+def python():
+    return render_template('cursos/python.html')
