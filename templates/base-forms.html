@@ -13,14 +13,14 @@
     <main>
       <section id="section-esquerda">
         <div id="icone">
-          <img src="../static/imgs/icone.png" alt="Icone" id="icone">
+          <img src="{{url_for('static', filename='imgs/icone.png')}}" alt="Icone" id="icone">
         </div>
 
         {% block form %} {% endblock %}
       </section>
       <section id="section-direita">
         <div id="div-section-direita">
-          <img src="../static/imgs/logo.png" alt="Imagem da logo" id="logo" />
+          <img src="{{url_for('static', filename='imgs/logo.png')}}" alt="Imagem da logo" id="logo" />
           <h1>Aprenda Programação do Zero ao Avançado</h1>
           <p>
             Acesso a mais de 100 cursos de programação com os melhores
@@ -28,15 +28,15 @@
           </p>
           <div id="vantagens">
             <div class="vantagem">
-              <img src="../static/imgs/vantagem1.png" alt="Vantagem 1" />
+              <img src="{{url_for('static', filename='imgs/vantagem1.png')}}" alt="Vantagem 1" />
               <p>Acesso Vitalício</p>
             </div>
             <div class="vantagem">
-              <img src="../static/imgs/vantagem2.png" alt="Vantagem 2" />
+              <img src="{{url_for('static', filename='imgs/vantagem2.png')}}" alt="Vantagem 2" />
               <p>Certificado Reconhecido</p>
             </div>
             <div class="vantagem">
-              <img src="../static/imgs/vantagem3.png" alt="Vantagem 3" />
+              <img src="{{url_for('static', filename='imgs/vantagem2.png')}}" alt="Vantagem 3" />
               <p>Suporte Especializado</p>
             </div>
           </div>

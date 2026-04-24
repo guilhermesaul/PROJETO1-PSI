@@ -15,7 +15,7 @@
   <body>
     <header>
       <div id="logo-navbar">
-        <img src="../static/imgs/logo-azul.png" alt="Logo marca azul" />
+        <img src="{{url_for('static', filename='imgs/logo-azul.png')}}" alt="Logo marca azul" />
         <nav>
           <li>
             <a href="#inicio">Início</a>
@@ -26,9 +26,9 @@
         </nav>
       </div>
       <div id="user">
-        <img src="../static/imgs/user.png" alt="Imagem do user" />
+        <img src="{{url_for('static', filename='imgs/user.png')}}" alt="Imagem do user" />
         <h2>User</h2>
-        <img src="../static/imgs/seta-baixo.png" alt="Seta para baixo" />
+        <img src="{{url_for('static', filename='imgs/seta-baixo.png')}}" alt="Seta para baixo" />
       </div>
     </header>
     {% block content %} {% endblock %}

@@ -6,7 +6,7 @@ body {
     --azul-principal: #1b79d4;
     --blue-footer: #0A1929;
     --white: #ffffff;
-    --cinza-texto: #616161
+    --cinza-texto: #616161;
     --cinzacards: #fbfbfb;
     
 }
@@ -64,7 +64,6 @@ body {
 }
 
 .section2 {
-    padding:80 px;
     display: flex;
     flex-direction: column;
     gap: 40px;
