@@ -12,3 +12,7 @@ def cadastro():
 @app.route('/home', methods = ['post'])
 def home():
     return render_template('home.html')
+
+@app.route('/cursos/html5')
+def html5():
+    return render_template('cursos/html5.html')
