@@ -1,9 +1,68 @@
 {% extends "base.html" %}
 
 {% block title %}
-    User 
+    Configurações da Conta
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/user.css')}}"/>
 {% endblock %}
 
 {% block content %}
-trabalhe.OLHE O ZAP
+<main class="user-main">
+    <div class="user-container">
+        <div class="user-header">
+            <h1>Configurações da Conta</h1>
+            <p>Gerencie seus dados pessoais e preferências de segurança.</p>
+        </div>
+
+        <div class="user-card">
+            <div class="card-secao-titulo">
+                <span class="secao-icone">👤</span>
+                <h3>Informações Pessoais</h3>
+            </div>
+
+            <div class="form-grd">
+                <div class="form-grp">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" id="nome" placeholder="">
+                </div>
+                <div class="form-grp">
+                    <label for="email">E-Mail</label>
+                    <input type="email" id="email" placeholder="">
+                </div>
+            </div>
+
+            <div class="card-secao-titulo" style="margin-top: 30px;">
+                <span class="secao-icone">🔒</span>
+                <h3>Segurança e Senha</h3>
+            </div>
+
+            <div class="form-grd">
+                <div class="form-grp">
+                    <label for="nova-senha">Nova Senha</label>
+                    <input type="password" id="nova-senha" placeholder="">
+                </div>
+                <div class="form-grp">
+                    <label for="confirmar-senha">Confirmar Nova Senha</label>
+                    <input type="password" id="confirmar-senha" placeholder="">
+                </div>
+            </div>
+
+            <div class="salvar-btn-wrapper">
+                <button class="btn-salvar">Salvar Alterações</button>
+            </div>
+        </div>
+
+        <div class="user-card card-perigo">
+            <div class="card-secao-titulo">
+                <h3 class="titulo-perigo">Excluir Conta</h3>
+            </div>
+            <div class="perigo-conteudo">
+                <p>Ao excluir sua conta, todos os seus dados, progressos nos cursos e certificados serão apagados permanentemente. Esta ação não pode ser desfeita.</p>
+                <button class="btn-excluir">Excluir minha Conta</button>
+            </div>
+        </div>
+    </div>
+</main>
 {% endblock %}

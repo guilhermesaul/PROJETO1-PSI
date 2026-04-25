@@ -29,6 +29,6 @@ def python():
 def mysql():
     return render_template('cursos/mysql.html')
 
-@app.route('user')
+@app.route('/user')
 def user():
     return render_template('user.html')
