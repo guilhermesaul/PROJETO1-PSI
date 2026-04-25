@@ -30,7 +30,7 @@
     </div>
 </section>
 
-   <section class="section2">
+<section class="section2">
     <div class="cardpesquisa">
         <h1>Cursos em Destaque</h1>
         <p>Os cursos mais populares e bem avaliados</p>
@@ -139,29 +139,36 @@
         </div>
     </div>
 </section>
+
 <section class="beneficios">
     <h2>Por que escolher a DevSpace?</h2>
     <p class="beneficios-subtitulo">Benefícios que fazem a diferença no seu aprendizado</p>
     <div class="beneficios-grid">
         <div class="beneficio">
             <div class="beneficio-icone">
-                
+                <img src="{{url_for('static', filename='imgs/medalha.png')}}" alt="Medalha">
             </div>
             <h4>Certificado Reconhecido</h4>
             <p>Certificado digital ao concluir cada curso</p>
         </div>
         <div class="beneficio">
-            <div class="beneficio-icone"></div>
+            <div class="beneficio-icone">
+                <img src="{{url_for('static', filename='imgs/relogio.png')}}" alt="Relogio">
+            </div>
             <h4>Acesso Vitalício</h4>
             <p>Estude no seu ritmo, sem limite de tempo</p>
         </div>
         <div class="beneficio">
-            <div class="beneficio-icone"></div>
+            <div class="beneficio-icone">
+                <img src="{{url_for('static', filename='imgs/suporte.png')}}" alt="Suporte">
+            </div>
             <h4>Suporte Especializado</h4>
             <p>Tire dúvidas diretamente com instrutores</p>
         </div>
         <div class="beneficio">
-            <div class="beneficio-icone"></div>
+            <div class="beneficio-icone">
+                <img src="{{url_for('static', filename='imgs/livro.png')}}" alt="Livro">
+            </div>
             <h4>Aulas Práticas</h4>
             <p>Aprenda fazendo projetos reais</p>
         </div>
@@ -169,44 +176,47 @@
 </section>
 
 <section class="feedbacks">
-
-    <h1>O que nossos alunos dizem</h1>
-    <p>Histórias de sucesso de quem já transformou a carreira</p>
+    <h1 id="feedbacks-titulo">O que nossos alunos dizem:</h1>
+    <p id="feedbacks-subtitulo">Histórias de sucesso de quem já transformou a carreira</p>
 
     <div class="cardgeral">
         <div class="cardfeedback">
-            <img src="{{ url_for('static', filename='imgs/feedback1.jpeg') }}" alt="foto do aluno" class="cardfeedback-img">
-            <h3>Guilherme saul</h3>
-            <h4>desenvolvedor front-end</h4>
-            <p>A DevSpace transformou minha carreira. Saí do zero e hoje trabalho como desenvolvedor!</p>
-        </div>
-        <div class="cardfeedback">
-            <img src="{{ url_for('static', filename='imgs/feedback1.jpeg') }}" alt="foto do aluno" class="cardfeedback-img">
-            <h3 class="nomealuno">Guilherme saul</h3>
-            <h4>desenvolvedor front-end</h4>
+            <img src="{{ url_for('static', filename='imgs/feedback1.webp') }}" alt="foto do aluno" class="cardfeedback-img">
+            <div class="div-nome-aluno">
+                <p class="nome-aluno">Davi Brito</p>
+                <p class="cargo-aluno">Desenvolvedor front-end</p>
+            </div>
             <p class="depoimento">A DevSpace transformou minha carreira. Saí do zero e hoje trabalho como desenvolvedor!</p>
         </div>
         <div class="cardfeedback">
-            <img src="{{ url_for('static', filename='imgs/feedback1.jpeg') }}" alt="foto do aluno" class="cardfeedback-img">
-            <h3 class="nomealuno">Guilherme saul</h3>
-            <h4>desenvolvedor front-end</h4>
-            <p class="depoimento">A DevSpace transformou minha carreira. Saí do zero e hoje trabalho como desenvolvedor!</p>
+            <img src="{{ url_for('static', filename='imgs/feedback2.png') }}" alt="foto do aluno" class="cardfeedback-img">
+            <div class="div-nome-aluno">
+                <p class="nome-aluno">Wanessa Wolf</p>
+                <p class="cargo-aluno">Desenvolvedora front-end</p>
+            </div>
+            <p class="depoimento">A DevSpace transformou minha carreira. Saí do zero e hoje trabalho como desenvolvedora!</p>
+        </div>
+        <div class="cardfeedback">
+            <img src="{{ url_for('static', filename='imgs/feedback3.jpg') }}" alt="foto do aluno" class="cardfeedback-img">
+            <div class="div-nome-aluno">
+                <p class="nome-aluno">Patixa Teló</p>
+                <p class="cargo-aluno">Desenvolvedora front-end</p>
+            </div>
+            <p class="depoimento">A DevSpace transformou minha carreira. Saí do zero e hoje trabalho como desenvolvedora!</p>
         </div>
     </div>
+</section>
 
-    <section class="sobre">
-        <h1>Sobre a DevSpace</h1>
-        <p>Somos uma plataforma dedicada a democratizar o ensino de programação, oferecendo cursos de alta qualidade para iniciantes e profissionais 
-        que desejam avançar em suas carreiras.Nossa missão é capacitar pessoas através da tecnologia, fornecendo conteúdo atualizado, prático e alinhado 
-        com as demandas do mercado de trabalho.</p>
+<section class="sobre">
+    <h1>Sobre a DevSpace</h1>
+    <p>Somos uma plataforma dedicada a democratizar o ensino de programação, oferecendo cursos de alta qualidade para iniciantes e profissionais 
+    que desejam avançar em suas carreiras.Nossa missão é capacitar pessoas através da tecnologia, fornecendo conteúdo atualizado, prático e alinhado 
+    com as demandas do mercado de trabalho.</p>
 
-            <div class="info"><h1>100+</h1><p>Cursos</p></div>
-            <div class="info"><h1>50k+</h1><p>Alunos Ativos</p></div>
-            <div class="info"><h1>30+</h1><p>Instrutores</p></div>
-            <div class="info"><h1>4.8</h1><p>Avaliação Média</p></div>
-
-
-    </section>
+        <div class="info"><h1>100+</h1><p>Cursos</p></div>
+        <div class="info"><h1>50k+</h1><p>Alunos Ativos</p></div>
+        <div class="info"><h1>30+</h1><p>Instrutores</p></div>
+        <div class="info"><h1>4.8</h1><p>Avaliação Média</p></div>
 </section>
 
 <section class="cta">
