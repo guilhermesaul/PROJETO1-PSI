@@ -1,26 +1,27 @@
-{% extends 'base-forms.html' %}
-
-{% block title %}
-    Cadastro 
-{% endblock %}
-
-{% block form %}
-    <h2>Cria sua conta!</h2>
-    <form action="{{url_for('home')}}" method="post">
-        <div class="inputs">
-            <label for="nome">Nome Completo</label>
-            <input type="text" id="nome" />
-        </div>
-        <div class="inputs">
-            <label for="email">E-mail</label>
-            <input type="text" id="email" />
-        </div>
-        <div class="inputs">
-            <label for="senha">Senha</label>
-            <input type="password" id="senha" />
-        </div>
-        <button class="botaoentrar">Entrar</button>
-        <p>Já tem uma conta?<a href="{{url_for('cadastro')}}" class="semconta">Entrar na conta</a>
+{% extends 'base-forms.html' %} {% block title %} Cadastro {% endblock %} {%
+block form %}
+<h2>Cria sua conta!</h2>
+{% with mensagens = get_flashed_messages() %} {% if mensagens %}
+<p class="form-erro">{{ mensagens[0] }}</p>
+{% endif %} {% endwith %}
+<form action="{{url_for('cadastro')}}" method="post">
+  <div class="inputs">
+    <label for="nome">Nome Completo</label>
+    <input type="text" id="nome" name="nome" />
+  </div>
+  <div class="inputs">
+    <label for="email">E-mail</label>
+    <input type="text" id="email" name="email" />
+  </div>
+  <div class="inputs">
+    <label for="senha">Senha</label>
+    <input type="password" id="senha" name="senha" />
+  </div>
+  <button class="botaoentrar">Entrar</button>
+  <p>
+    Já tem uma conta?<a href="{{url_for('login')}}" class="semconta"
+      >Entrar na conta</a
+    >
   </p>
 </form>
 {% endblock %}

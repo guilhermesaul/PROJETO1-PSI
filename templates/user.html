@@ -1,68 +1,160 @@
-{% extends "base.html" %}
-
-{% block title %}
-    Configurações da Conta
-{% endblock %}
-
-{% block css %}
-    <link rel="stylesheet" href="{{url_for('static', filename='css/user.css')}}"/>
-{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %} Gerenciamento de Usuários {%
+endblock %} {% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/user.css')}}" />
+{% endblock %} {% block content %}
 <main class="user-main">
-    <div class="user-container">
-        <div class="user-header">
-            <h1>Configurações da Conta</h1>
-            <p>Gerencie seus dados pessoais e preferências de segurança.</p>
+  <div class="user-container">
+    <section class="user-hero">
+      <div class="user-hero-copy">
+        <span class="user-label">CRUD de Usuários</span>
+        <h1>Salvar, editar, remover e mostrar usuários</h1>
+        <p>
+          Esta página concentra o cadastro e a manutenção dos usuários do
+          sistema.
+        </p>
+      </div>
+
+      <form
+        class="user-search"
+        method="get"
+        action="{{ url_for('user_page') }}"
+      >
+        <input
+          type="search"
+          name="buscar"
+          value="{{ buscar }}"
+          placeholder="Buscar por nome ou e-mail"
+        />
+        <button type="submit">Buscar</button>
+      </form>
+    </section>
+
+    {% with mensagens = get_flashed_messages() %} {% if mensagens %}
+    <p class="form-erro">{{ mensagens[0] }}</p>
+    {% endif %} {% endwith %} {% if usuario_selecionado %}
+    <section class="user-card user-destaque">
+      <div class="card-secao-titulo">
+        <span class="secao-icone">👁</span>
+        <h3>Usuário selecionado</h3>
+      </div>
+      <div class="user-detalhe">
+        <p><strong>Nome:</strong> {{ usuario_selecionado.nome }}</p>
+        <p><strong>E-mail:</strong> {{ usuario_selecionado.email }}</p>
+        <p><strong>Senha:</strong> {{ usuario_selecionado.senha }}</p>
+      </div>
+    </section>
+    {% endif %}
+
+    <div class="user-grid">
+      <section class="user-card">
+        <div class="card-secao-titulo">
+          <span class="secao-icone">👤</span>
+          <h3>
+            {% if usuario_edicao %}Editar usuário{% else %}Novo usuário{% endif
+            %}
+          </h3>
         </div>
 
-        <div class="user-card">
-            <div class="card-secao-titulo">
-                <span class="secao-icone">👤</span>
-                <h3>Informações Pessoais</h3>
+        <form
+          class="user-form"
+          method="post"
+          action="{% if usuario_edicao %}{{ url_for('editar_usuario', email_usuario=usuario_edicao.email) }}{% else %}{{ url_for('salvar_usuario') }}{% endif %}"
+        >
+          <div class="form-grd">
+            <div class="form-grp">
+              <label for="nome">Nome Completo</label>
+              <input
+                type="text"
+                id="nome"
+                name="nome"
+                value="{{ usuario_edicao.nome if usuario_edicao else '' }}"
+              />
             </div>
+            <div class="form-grp">
+              <label for="email">E-mail</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value="{{ usuario_edicao.email if usuario_edicao else '' }}"
+              />
+            </div>
+          </div>
 
-            <div class="form-grd">
-                <div class="form-grp">
-                    <label for="nome">Nome Completo</label>
-                    <input type="text" id="nome" placeholder="">
-                </div>
-                <div class="form-grp">
-                    <label for="email">E-Mail</label>
-                    <input type="email" id="email" placeholder="">
-                </div>
+          <div class="form-grd form-grd-senha">
+            <div class="form-grp">
+              <label for="senha">Senha</label>
+              <input
+                type="password"
+                id="senha"
+                name="senha"
+                value="{{ usuario_edicao.senha if usuario_edicao else '' }}"
+              />
             </div>
+          </div>
 
-            <div class="card-secao-titulo" style="margin-top: 30px;">
-                <span class="secao-icone">🔒</span>
-                <h3>Segurança e Senha</h3>
-            </div>
+          <div class="salvar-btn-wrapper">
+            <button class="btn-salvar" type="submit">
+              {% if usuario_edicao %}Salvar alterações{% else %}Salvar usuário{%
+              endif %}
+            </button>
+          </div>
+        </form>
+      </section>
 
-            <div class="form-grd">
-                <div class="form-grp">
-                    <label for="nova-senha">Nova Senha</label>
-                    <input type="password" id="nova-senha" placeholder="">
-                </div>
-                <div class="form-grp">
-                    <label for="confirmar-senha">Confirmar Nova Senha</label>
-                    <input type="password" id="confirmar-senha" placeholder="">
-                </div>
-            </div>
-
-            <div class="salvar-btn-wrapper">
-                <button class="btn-salvar">Salvar Alterações</button>
-            </div>
+      <section class="user-card">
+        <div class="card-secao-titulo">
+          <span class="secao-icone">📋</span>
+          <h3>Lista de usuários</h3>
         </div>
 
-        <div class="user-card card-perigo">
-            <div class="card-secao-titulo">
-                <h3 class="titulo-perigo">Excluir Conta</h3>
-            </div>
-            <div class="perigo-conteudo">
-                <p>Ao excluir sua conta, todos os seus dados, progressos nos cursos e certificados serão apagados permanentemente. Esta ação não pode ser desfeita.</p>
-                <button class="btn-excluir">Excluir minha Conta</button>
-            </div>
+        <div class="tabela-wrapper">
+          <table class="tabela-usuarios">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Senha</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in usuarios_filtrados %}
+              <tr>
+                <td>{{ item.nome }}</td>
+                <td>{{ item.email }}</td>
+                <td>••••••</td>
+                <td class="acoes">
+                  <a
+                    class="acao-link"
+                    href="{{ url_for('mostrar_usuario', email_usuario=item.email) }}"
+                    >Mostrar</a
+                  >
+                  <a
+                    class="acao-link"
+                    href="{{ url_for('editar_usuario', email_usuario=item.email) }}"
+                    >Editar</a
+                  >
+                  <form
+                    method="post"
+                    action="{{ url_for('remover_usuario', email_usuario=item.email) }}"
+                  >
+                    <button class="acao-excluir" type="submit">Remover</button>
+                  </form>
+                </td>
+              </tr>
+              {% else %}
+              <tr>
+                <td colspan="4" class="linha-vazia">
+                  Nenhum usuário encontrado.
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
+      </section>
     </div>
+  </div>
 </main>
 {% endblock %}

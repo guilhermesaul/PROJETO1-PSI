@@ -8,27 +8,41 @@
       rel="stylesheet"
       href="{{url_for('static', filename='css/styles.css')}}"
     />
-    {% block css %}
-      
-    {% endblock %}
+    {% block css %} {% endblock %}
   </head>
   <body>
     <header>
+      {% set usuario_logado = session.get('usuario') %}
       <div id="logo-navbar">
-        <img src="{{url_for('static', filename='imgs/logo-azul.png')}}" alt="Logo marca azul" />
+        <img
+          src="{{url_for('static', filename='imgs/logo-azul.png')}}"
+          alt="Logo marca azul"
+        />
         <nav>
           <li>
-            <a href="#inicio">Início</a>
-            <a href="#cursos">Cursos</a>
-            <a href="#categorias">Categorias</a>
-            <a href="#sobre">Sobre</a>
+            <a href="{{ url_for('home') }}">Início</a>
+            <a href="{{ url_for('user_page') }}">Usuários</a>
+            <a href="{{ url_for('home') }}#cursos">Cursos</a>
+            <a href="{{ url_for('home') }}#sobre">Sobre</a>
           </li>
         </nav>
       </div>
       <div id="user">
-        <img src="{{url_for('static', filename='imgs/user.png')}}" alt="Imagem do user" />
-        <h2>User</h2>
-        <img src="{{url_for('static', filename='imgs/seta-baixo.png')}}" alt="Seta para baixo" />
+        <a class="user-link" href="{{ url_for('user_page') }}">
+          <img
+            src="{{url_for('static', filename='imgs/user.png')}}"
+            alt="Imagem do user"
+          />
+          <h2>{{ usuario_logado.nome if usuario_logado else 'User' }}</h2>
+          <img
+            src="{{url_for('static', filename='imgs/seta-baixo.png')}}"
+            alt="Seta para baixo"
+            class="user-arrow"
+          />
+        </a>
+        {% if usuario_logado %}
+        <a class="btn-logout" href="{{ url_for('logout') }}">Logout</a>
+        {% endif %}
       </div>
     </header>
     {% block content %} {% endblock %}

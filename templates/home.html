@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block content %}
-<section class="section1">
+<section class="section1" id="inicio">
     <div class="conteudosecao1">
         <h1 id="h1-rapidinho">Aprenda Programação do Zero ao Avançado</h1>
         <h2>Domine as tecnologias mais requisitadas do mercado e transforme sua carreira com cursos práticos e completos.</h2>
@@ -53,7 +53,7 @@
                 <div class="card-preco">
                     <span class="preco-atual">R$ 89,90</span>
                     <span class="preco-antigo">R$ 100,00</span>
-                    <a href="#" class="btn-ver-curso">Ver Curso</a>
+                    <a href="{{ url_for('html5') }}" class="btn-ver-curso">Ver Curso</a>
                 </div>
             </div>
         </div>
@@ -69,7 +69,7 @@
                 <div class="card-preco">
                     <span class="preco-atual">R$ 89,90</span>
                     <span class="preco-antigo">R$ 100,00</span>
-                    <a href="#" class="btn-ver-curso">Ver Curso</a>
+                    <a href="{{ url_for('html5') }}" class="btn-ver-curso">Ver Curso</a>
                 </div>
             </div>
         </div>
@@ -85,7 +85,7 @@
                 <div class="card-preco">
                     <span class="preco-atual">R$ 89,90</span>
                     <span class="preco-antigo">R$ 100,00</span>
-                    <a href="#" class="btn-ver-curso">Ver Curso</a>
+                    <a href="{{ url_for('javascript') }}" class="btn-ver-curso">Ver Curso</a>
                 </div>
             </div>
         </div>
@@ -101,7 +101,7 @@
                 <div class="card-preco">
                     <span class="preco-atual">R$ 89,90</span>
                     <span class="preco-antigo">R$ 100,00</span>
-                    <a href="#" class="btn-ver-curso">Ver Curso</a>
+                    <a href="{{ url_for('python') }}" class="btn-ver-curso">Ver Curso</a>
                 </div>
             </div>
         </div>
@@ -117,7 +117,7 @@
                 <div class="card-preco">
                     <span class="preco-atual">R$ 89,90</span>
                     <span class="preco-antigo">R$ 100,00</span>
-                    <a href="#" class="btn-ver-curso">Ver Curso</a>
+                    <a href="{{ url_for('mysql') }}" class="btn-ver-curso">Ver Curso</a>
                 </div>
             </div>
         </div>
@@ -133,7 +133,7 @@
                 <div class="card-preco">
                     <span class="preco-atual">R$ 89,90</span>
                     <span class="preco-antigo">R$ 100,00</span>
-                    <a href="#" class="btn-ver-curso">Ver Curso</a>
+                    <a href="{{ url_for('html5') }}" class="btn-ver-curso">Ver Curso</a>
                 </div>
             </div>
         </div>
@@ -208,19 +208,38 @@
 </section>
 
 <section class="sobre">
-    <h1>Sobre a DevSpace</h1>
-    <p>Somos uma plataforma dedicada a democratizar o ensino de programação, oferecendo cursos de alta qualidade para iniciantes e profissionais 
-    que desejam avançar em suas carreiras.Nossa missão é capacitar pessoas através da tecnologia, fornecendo conteúdo atualizado, prático e alinhado 
-    com as demandas do mercado de trabalho.</p>
+    <div class="sobre-img-espaco">
+        <img src="{{url_for('static', filename='imgs/sobre.png')}}" alt="Sobre">
+        </div>
+    
+    <div class="sobre-conteudo">
+        <h1>Sobre a DevSpace</h1>
+        <p>Somos uma plataforma dedicada a democratizar o ensino de programação, oferecendo cursos de alta qualidade para iniciantes e profissionais que desejam avançar em suas carreiras.</p>
+        <p>Nossa missão é capacitar pessoas através da tecnologia, fornecendo conteúdo atualizado, prático e alinhado com as demandas do mercado de trabalho.</p>
 
-        <div class="info"><h1>100+</h1><p>Cursos</p></div>
-        <div class="info"><h1>50k+</h1><p>Alunos Ativos</p></div>
-        <div class="info"><h1>30+</h1><p>Instrutores</p></div>
-        <div class="info"><h1>4.8</h1><p>Avaliação Média</p></div>
+        <div class="sobre-infos">
+            <div class="info">
+                <h1>100 +</h1>
+                <p>Cursos Disponíveis</p>
+            </div>
+            <div class="info">
+                <h1>50k +</h1>
+                <p>Alunos ativos</p>
+            </div>
+            <div class="info">
+                <h1>30+</h1>
+                <p>Instrutores</p>
+            </div>
+            <div class="info">
+                <h1>4.8</h1>
+                <p>Avaliação Média</p>
+            </div>
+        </div>
+    </div>
 </section>
 
 <section class="cta">
     <h1>Pronto para começar sua jornada?</h1>
-    <p>Junte-se a milhares de alunos e transforme sua carreira hoje mesmo!</p>
+    <p>Junte-se a milhares de alunos e transformee sua carreira hoje mesmo!</p>
 </section>
 {% endblock %}
