@@ -1,4 +1,5 @@
 from flask import Flask, flash, redirect, render_template, request, session, url_for
+from functools import wraps
 
 app = Flask(__name__)
 app.secret_key = 'devspace-secret-key'
@@ -15,7 +16,14 @@ usuarios = {
         'senha': '1234'
     }
 }
-
+def login_requerido(f):
+    @wraps(f)
+    def verificar(*args, **kwargs):
+        if not session.get('usuario'):
+            flash('você precisa estar logado para acessar essa página.')
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return verificar
 
 def usuario_da_query():
     usuario = session.get('usuario')
@@ -42,6 +50,8 @@ def listar_usuarios(filtro=''):
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
+    if session.get('usuario'):
+        return redirect(url_for('home')) 
     if request.method == 'POST':
         email = request.form.get('email', '').strip().lower()
         senha = request.form.get('senha', '').strip()
@@ -74,6 +84,8 @@ def login():
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
+    if session.get('usuario'): 
+        return redirect(url_for('home'))  
     if request.method == 'POST':
         nome = request.form.get('nome', '').strip()
         email = request.form.get('email', '').strip().lower()
@@ -103,6 +115,7 @@ def cadastro():
     return render_template('cadastro.html')
 
 @app.route('/home')
+@login_requerido
 def home():
     usuario = usuario_da_query()
     return render_template('home.html', usuario=usuario)
@@ -113,6 +126,7 @@ def logout():
     return redirect(url_for('login'))
 
 @app.route('/user')
+@login_requerido
 def user_page():
     usuario = usuario_da_query()
     buscar = request.args.get('buscar', '').strip()
@@ -133,6 +147,7 @@ def user_page():
 
 
 @app.route('/user/salvar', methods=['POST'])
+@login_requerido
 def salvar_usuario():
     usuario = usuario_da_query()
     nome = request.form.get('nome', '').strip()
@@ -162,6 +177,7 @@ def salvar_usuario():
 
 
 @app.route('/user/<email_usuario>')
+@login_requerido
 def mostrar_usuario(email_usuario):
     usuario = usuario_da_query()
     registro = usuarios.get(email_usuario.strip().lower())
@@ -183,6 +199,7 @@ def mostrar_usuario(email_usuario):
 
 
 @app.route('/user/editar/<email_usuario>', methods=['GET', 'POST'])
+@login_requerido
 def editar_usuario(email_usuario):
     usuario = usuario_da_query()
     email_usuario = email_usuario.strip().lower()
@@ -234,6 +251,7 @@ def editar_usuario(email_usuario):
 
 
 @app.route('/user/remover/<email_usuario>', methods=['POST'])
+@login_requerido
 def remover_usuario(email_usuario):
     usuario = usuario_da_query()
     email_usuario = email_usuario.strip().lower()
@@ -245,17 +263,21 @@ def remover_usuario(email_usuario):
 
 
 @app.route('/cursos/html5')
+@login_requerido
 def html5():
     return render_template('cursos/html5.html')
 
 @app.route('/cursos/javascript')
+@login_requerido
 def javascript():
     return render_template('cursos/javascript.html')
 
 @app.route('/cursos/python')
+@login_requerido
 def python():
     return render_template('cursos/python.html')
 
 @app.route('/cursos/mysql')
+@login_requerido
 def mysql():
     return render_template('cursos/mysql.html')
