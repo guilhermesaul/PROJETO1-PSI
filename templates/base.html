@@ -20,28 +20,37 @@
         />
         <nav>
           <li>
+            {% if usuario_logado %}
             <a href="{{ url_for('home') }}">Início</a>
             <a href="{{ url_for('user_page') }}">Usuários</a>
-            <a href="{{ url_for('home') }}#cursos">Cursos</a>
+            <a href="{{ url_for('gerenciar_cursos') }}">Gerenciar Cursos</a>
+            <a href="{{ url_for('home') }}#cursos">Catálogo</a>
             <a href="{{ url_for('home') }}#sobre">Sobre</a>
+            {% else %}
+            <a href="{{ url_for('login') }}">Início</a>
+            <a href="{{ url_for('login') }}#cursos">Cursos</a>
+            <a href="{{ url_for('login') }}#sobre">Sobre</a>
+            {% endif %}
           </li>
         </nav>
       </div>
       <div id="user">
+        {% if usuario_logado %}
         <a class="user-link" href="{{ url_for('user_page') }}">
           <img
             src="{{url_for('static', filename='imgs/user.png')}}"
             alt="Imagem do user"
           />
-          <h2>{{ usuario_logado.nome if usuario_logado else 'User' }}</h2>
+          <h2>{{ usuario_logado.nome }}</h2>
           <img
             src="{{url_for('static', filename='imgs/seta-baixo.png')}}"
             alt="Seta para baixo"
             class="user-arrow"
           />
         </a>
-        {% if usuario_logado %}
         <a class="btn-logout" href="{{ url_for('logout') }}">Logout</a>
+        {% else %}
+        <a class="btn-logout" href="{{ url_for('login') }}">Entrar</a>
         {% endif %}
       </div>
     </header>

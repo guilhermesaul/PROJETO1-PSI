@@ -1,0 +1,189 @@
+{% extends "base.html" %} {% block title %} Gerenciamento de Cursos {% endblock %} {% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/user.css')}}" />
+<link rel="stylesheet" href="{{url_for('static', filename='css/cursos_crud.css')}}" />
+{% endblock %} {% block content %}
+<main class="user-main">
+  <div class="user-container">
+    <section class="user-hero">
+      <div class="user-hero-copy">
+        <span class="user-label">CRUD de Cursos</span>
+        <h1>Gerenciar Cursos da Plataforma</h1>
+        <p>Cadastre, edite, visualize e remova cursos disponíveis na DevSpace.</p>
+      </div>
+
+      <form class="user-search" method="get" action="{{ url_for('gerenciar_cursos') }}">
+        <input
+          type="search"
+          name="buscar"
+          value="{{ buscar }}"
+          placeholder="Buscar por título ou categoria"
+        />
+        <button type="submit">Buscar</button>
+      </form>
+    </section>
+
+    {% with mensagens = get_flashed_messages() %} {% if mensagens %}
+    <p class="form-erro">{{ mensagens[0] }}</p>
+    {% endif %} {% endwith %}
+
+    {% if curso_selecionado %}
+    <section class="user-card user-destaque">
+      <div class="card-secao-titulo">
+        <span class="secao-icone">👁</span>
+        <h3>Curso selecionado</h3>
+      </div>
+      <div class="user-detalhe curso-detalhe-grid">
+        <p><strong>Título:</strong> {{ curso_selecionado.titulo }}</p>
+        <p><strong>Instrutor:</strong> {{ curso_selecionado.instrutor }}</p>
+        <p><strong>Categoria:</strong> {{ curso_selecionado.categoria }}</p>
+        <p><strong>Carga Horária:</strong> {{ curso_selecionado.carga_horaria }}h</p>
+        <p><strong>Preço:</strong> R$ {{ "%.2f"|format(curso_selecionado.preco) }}</p>
+        <p class="descricao-full"><strong>Descrição:</strong> {{ curso_selecionado.descricao }}</p>
+      </div>
+    </section>
+    {% endif %}
+
+    <div class="user-grid">
+      <section class="user-card">
+        <div class="card-secao-titulo">
+          <span class="secao-icone">📚</span>
+          <h3>{% if curso_edicao %}Editar Curso{% else %}Novo Curso{% endif %}</h3>
+        </div>
+
+        <form
+          class="user-form"
+          method="post"
+          action="{% if curso_edicao %}{{ url_for('editar_curso', id_curso=curso_edicao.id) }}{% else %}{{ url_for('salvar_curso') }}{% endif %}"
+        >
+          <div class="form-grd">
+            <div class="form-grp">
+              <label for="titulo">Título do Curso</label>
+              <input
+                type="text"
+                id="titulo"
+                name="titulo"
+                placeholder="Ex: Python para Iniciantes"
+                value="{{ curso_edicao.titulo if curso_edicao else '' }}"
+              />
+            </div>
+            <div class="form-grp">
+              <label for="instrutor">Instrutor</label>
+              <input
+                type="text"
+                id="instrutor"
+                name="instrutor"
+                placeholder="Ex: Ana Silva"
+                value="{{ curso_edicao.instrutor if curso_edicao else '' }}"
+              />
+            </div>
+          </div>
+
+          <div class="form-grd">
+            <div class="form-grp">
+              <label for="categoria">Categoria</label>
+              <select id="categoria" name="categoria" class="form-select">
+                {% set cats = ['Front-end', 'Back-end', 'Banco de Dados', 'Mobile', 'DevOps', 'Design', 'Outros'] %}
+                {% for cat in cats %}
+                <option value="{{ cat }}" {% if curso_edicao and curso_edicao.categoria == cat %}selected{% endif %}>{{ cat }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-grp">
+              <label for="carga_horaria">Carga Horária (horas)</label>
+              <input
+                type="number"
+                id="carga_horaria"
+                name="carga_horaria"
+                min="1"
+                placeholder="Ex: 40"
+                value="{{ curso_edicao.carga_horaria if curso_edicao else '' }}"
+              />
+            </div>
+          </div>
+
+          <div class="form-grd form-grd-senha">
+            <div class="form-grp">
+              <label for="preco">Preço (R$)</label>
+              <input
+                type="number"
+                id="preco"
+                name="preco"
+                step="0.01"
+                min="0"
+                placeholder="Ex: 89.90"
+                value="{{ curso_edicao.preco if curso_edicao else '' }}"
+              />
+            </div>
+          </div>
+
+          <div class="form-grd form-grd-senha">
+            <div class="form-grp">
+              <label for="descricao">Descrição</label>
+              <textarea
+                id="descricao"
+                name="descricao"
+                rows="3"
+                placeholder="Breve descrição do curso..."
+                class="form-textarea"
+              >{{ curso_edicao.descricao if curso_edicao else '' }}</textarea>
+            </div>
+          </div>
+
+          <div class="salvar-btn-wrapper">
+            {% if curso_edicao %}
+            <a href="{{ url_for('gerenciar_cursos') }}" class="btn-cancelar">Cancelar</a>
+            {% endif %}
+            <button class="btn-salvar" type="submit">
+              {% if curso_edicao %}Salvar Alterações{% else %}Cadastrar Curso{% endif %}
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section class="user-card">
+        <div class="card-secao-titulo">
+          <span class="secao-icone">📋</span>
+          <h3>Lista de Cursos</h3>
+        </div>
+
+        <div class="tabela-wrapper">
+          <table class="tabela-usuarios">
+            <thead>
+              <tr>
+                <th>Título</th>
+                <th>Instrutor</th>
+                <th>Categoria</th>
+                <th>Horas</th>
+                <th>Preço</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for curso in cursos %}
+              <tr>
+                <td>{{ curso.titulo }}</td>
+                <td>{{ curso.instrutor }}</td>
+                <td><span class="badge-categoria">{{ curso.categoria }}</span></td>
+                <td>{{ curso.carga_horaria }}h</td>
+                <td>R$ {{ "%.2f"|format(curso.preco) }}</td>
+                <td class="acoes">
+                  <a class="acao-link" href="{{ url_for('mostrar_curso', id_curso=curso.id) }}">Mostrar</a>
+                  <a class="acao-link" href="{{ url_for('editar_curso', id_curso=curso.id) }}">Editar</a>
+                  <form method="post" action="{{ url_for('remover_curso', id_curso=curso.id) }}">
+                    <button class="acao-excluir" type="submit">Remover</button>
+                  </form>
+                </td>
+              </tr>
+              {% else %}
+              <tr>
+                <td colspan="6" class="linha-vazia">Nenhum curso encontrado.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+{% endblock %}

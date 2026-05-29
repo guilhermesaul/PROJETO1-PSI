@@ -1,0 +1,73 @@
+/* ── CSS extra para a página de gerenciamento de cursos ── */
+
+.curso-detalhe-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px 24px;
+}
+
+.descricao-full {
+  grid-column: 1 / -1;
+}
+
+.form-select,
+.form-textarea {
+  border: 1px solid #d6deeb;
+  border-radius: 14px;
+  padding: 10px 14px;
+  font-size: 14px;
+  outline: none;
+  background: #fbfdff;
+  font-family: inherit;
+  color: #334155;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-select {
+  height: 48px;
+  cursor: pointer;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.form-select:focus,
+.form-textarea:focus {
+  border-color: #1b79d4;
+  box-shadow: 0 0 0 4px rgba(27, 121, 212, 0.12);
+  background: #ffffff;
+}
+
+.badge-categoria {
+  display: inline-flex;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(27, 121, 212, 0.1);
+  color: #1b79d4;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.btn-cancelar {
+  min-width: 120px;
+  border: 2px solid #d6deeb;
+  border-radius: 14px;
+  padding: 13px 22px;
+  background: transparent;
+  color: #5c6b80;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  text-decoration: none;
+  margin-right: 10px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-cancelar:hover {
+  background: #f0f4f8;
+  color: #0f2747;
+}

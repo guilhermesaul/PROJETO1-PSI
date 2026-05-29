@@ -1,6 +1,11 @@
 from flask import Flask, flash, redirect, render_template, request, session, url_for
 from functools import wraps
-from db import atualizar_usuario, buscar_usuario_por_email, inserir_usuario, listar_usuarios, remover_usuario as remover_usuario_banco
+from db import (
+    atualizar_usuario, buscar_usuario_por_email, inserir_usuario,
+    listar_usuarios, remover_usuario as remover_usuario_banco,
+    listar_cursos, buscar_curso_por_id, inserir_curso,
+    atualizar_curso, remover_curso as remover_curso_banco
+)
 
 
 app = Flask(__name__)
@@ -272,3 +277,102 @@ def python():
 @login_requerido
 def mysql():
     return render_template('cursos/mysql.html')
+
+@app.route('/gerenciar-cursos')
+@login_requerido
+def gerenciar_cursos():
+    usuario = usuario_da_query()
+    buscar = request.args.get('buscar', '').strip()
+    cursos = listar_cursos(buscar)
+    return render_template(
+        'cursos/gerenciar.html',
+        usuario=usuario,
+        cursos=cursos,
+        buscar=buscar,
+        curso_selecionado=None,
+        curso_edicao=None
+    )
+
+
+@app.route('/gerenciar-cursos/salvar', methods=['POST'])
+@login_requerido
+def salvar_curso():
+    titulo = request.form.get('titulo', '').strip()
+    instrutor = request.form.get('instrutor', '').strip()
+    categoria = request.form.get('categoria', '').strip()
+    carga_horaria = request.form.get('carga_horaria', '').strip()
+    preco = request.form.get('preco', '').strip()
+    descricao = request.form.get('descricao', '').strip()
+
+    if not titulo or not instrutor or not categoria or not carga_horaria or not preco:
+        flash('Preencha todos os campos obrigatórios.')
+        return redirect(url_for('gerenciar_cursos'))
+
+    inserir_curso(titulo, instrutor, categoria, carga_horaria, preco, descricao)
+    flash('Curso cadastrado com sucesso!')
+    return redirect(url_for('gerenciar_cursos'))
+
+
+@app.route('/gerenciar-cursos/<int:id_curso>')
+@login_requerido
+def mostrar_curso(id_curso):
+    usuario = usuario_da_query()
+    curso = buscar_curso_por_id(id_curso)
+
+    if not curso:
+        flash('Curso não encontrado.')
+        return redirect(url_for('gerenciar_cursos'))
+
+    return render_template(
+        'cursos/gerenciar.html',
+        usuario=usuario,
+        cursos=listar_cursos(),
+        buscar='',
+        curso_selecionado=curso,
+        curso_edicao=None
+    )
+
+
+@app.route('/gerenciar-cursos/editar/<int:id_curso>', methods=['GET', 'POST'])
+@login_requerido
+def editar_curso(id_curso):
+    usuario = usuario_da_query()
+    curso = buscar_curso_por_id(id_curso)
+
+    if not curso:
+        flash('Curso não encontrado.')
+        return redirect(url_for('gerenciar_cursos'))
+
+    if request.method == 'POST':
+        titulo = request.form.get('titulo', '').strip()
+        instrutor = request.form.get('instrutor', '').strip()
+        categoria = request.form.get('categoria', '').strip()
+        carga_horaria = request.form.get('carga_horaria', '').strip()
+        preco = request.form.get('preco', '').strip()
+        descricao = request.form.get('descricao', '').strip()
+
+        if not titulo or not instrutor or not categoria or not carga_horaria or not preco:
+            flash('Preencha todos os campos obrigatórios.')
+            return redirect(url_for('editar_curso', id_curso=id_curso))
+
+        atualizar_curso(id_curso, titulo, instrutor, categoria, carga_horaria, preco, descricao)
+        flash('Curso atualizado com sucesso!')
+        return redirect(url_for('mostrar_curso', id_curso=id_curso))
+
+    return render_template(
+        'cursos/gerenciar.html',
+        usuario=usuario,
+        cursos=listar_cursos(),
+        buscar='',
+        curso_selecionado=curso,
+        curso_edicao=curso
+    )
+
+
+@app.route('/gerenciar-cursos/remover/<int:id_curso>', methods=['POST'])
+@login_requerido
+def remover_curso(id_curso):
+    if buscar_curso_por_id(id_curso):
+        remover_curso_banco(id_curso)
+        flash('Curso removido com sucesso.')
+    return redirect(url_for('gerenciar_cursos'))
