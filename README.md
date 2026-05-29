@@ -5,7 +5,7 @@ Aplicação web desenvolvida com **Flask** e **SQLite3** para gerenciamento de u
 ## 🚀 Como executar o projeto
 
 ### Pré-requisitos
-- Python 3.8 ou superior
+- Python
 - pip (gerenciador de pacotes do Python)
 
 ### Instalação
@@ -19,10 +19,7 @@ cd PROJETO1-PSI
 2. (Opcional) Crie e ative um ambiente virtual:
 ```bash
 python -m venv env
-# Windows:
 env\Scripts\activate
-# Linux/Mac:
-source env/bin/activate
 ```
 
 3. Instale as dependências:
@@ -32,7 +29,7 @@ pip install flask
 
 4. Execute a aplicação:
 ```bash
-python app.py
+flask run --debug
 ```
 
 5. Acesse no navegador: [http://localhost:5000](http://localhost:5000)
