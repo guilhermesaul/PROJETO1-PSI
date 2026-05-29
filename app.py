@@ -107,14 +107,23 @@ def logout():
 def user_page():
     usuario = usuario_da_query()
     buscar = request.args.get('buscar', '').strip()
+    ordem  = request.args.get('ordem', 'nome')
     email_visualizado = request.args.get('visualizar', '').strip().lower()
     email_edicao = request.args.get('editar', '').strip().lower()
+       
+    usuarios_filtrados = listar_usuarios(buscar)
+
+    if ordem == 'email':                                    # ← adicionar
+     usuarios_filtrados = sorted(
+        usuarios_filtrados, key=lambda u: u['email'].lower()
+    )
 
     return render_template(
         'user.html',
         usuario=usuario,
         buscar=buscar,
-        usuarios_filtrados=listar_usuarios(buscar),
+        ordem =ordem,
+        usuarios_filtrados=usuarios_filtrados,
         usuario_selecionado=buscar_usuario_por_email(email_visualizado),
         email_selecionado=email_visualizado,
         usuario_edicao=buscar_usuario_por_email(email_edicao),
@@ -144,6 +153,7 @@ def salvar_usuario():
         return redirect(url_for('user_page', buscar=buscar))
 
     inserir_usuario(nome, email, senha)
+    flash('Usuário cadastrado com sucesso.')
 
     return redirect(url_for('mostrar_usuario', email_usuario=email))
 
@@ -162,6 +172,7 @@ def mostrar_usuario(email_usuario):
         'user.html',
         usuario=usuario,
         buscar='',
+        ordem='nome',
         usuarios_filtrados=listar_usuarios(),
         usuario_selecionado=registro,
         email_selecionado=registro['email'],
@@ -200,6 +211,7 @@ def editar_usuario(email_usuario):
             return redirect(url_for('editar_usuario', email_usuario=email_usuario, buscar=buscar))
 
         atualizar_usuario(email_usuario, nome, email_novo, senha)
+        flash('Usuário atualizado com sucesso.') 
 
         if session.get('usuario', {}).get('email', '').lower() == email_usuario:
             session['usuario'] = {
@@ -213,6 +225,7 @@ def editar_usuario(email_usuario):
         'user.html',
         usuario=usuario,
         buscar=request.args.get('buscar', '').strip(),
+        ordem='nome',
         usuarios_filtrados=listar_usuarios(request.args.get('buscar', '')),
         usuario_selecionado=registro,
         email_selecionado=email_usuario,
@@ -228,10 +241,12 @@ def remover_usuario(email_usuario):
 
     if buscar_usuario_por_email(email_usuario):
         remover_usuario_banco(email_usuario)
+        flash('Usuário removido.')
 
         if session.get('usuario', {}).get('email', '').lower() == email_usuario:
             session.pop('usuario', None)
-
+            
+            return redirect(url_for('login')) 
     return redirect(url_for('user_page'))
 
 
