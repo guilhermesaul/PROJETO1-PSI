@@ -12,7 +12,6 @@
   </head>
   <body>
     <header>
-      {% set usuario_logado = session.get('usuario') %}
       <div id="logo-navbar">
         <img
           src="{{url_for('static', filename='imgs/logo-azul.png')}}"
@@ -20,10 +19,11 @@
         />
         <nav>
           <li>
-            {% if usuario_logado %}
+            {% if current_user.is_authenticated %}
             <a href="{{ url_for('home') }}">Início</a>
             <a href="{{ url_for('user_page') }}">Usuários</a>
-            <a href="{{ url_for('gerenciar_cursos') }}">Gerenciar Cursos</a>
+            <a href="{{ url_for('gerenciar_cursos') }}">Cursos</a>
+            <a href="{{ url_for('gerenciar_matriculas') }}">Matrículas</a>
             <a href="{{ url_for('home') }}#cursos">Catálogo</a>
             <a href="{{ url_for('home') }}#sobre">Sobre</a>
             {% else %}
@@ -35,13 +35,13 @@
         </nav>
       </div>
       <div id="user">
-        {% if usuario_logado %}
+        {% if current_user.is_authenticated %}
         <a class="user-link" href="{{ url_for('user_page') }}">
           <img
             src="{{url_for('static', filename='imgs/user.png')}}"
             alt="Imagem do user"
           />
-          <h2>{{ usuario_logado.nome }}</h2>
+          <h2>{{ current_user.nome }}</h2>
           <img
             src="{{url_for('static', filename='imgs/seta-baixo.png')}}"
             alt="Seta para baixo"

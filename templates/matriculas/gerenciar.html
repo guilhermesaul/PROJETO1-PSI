@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block title %} Gerenciamento de Matrículas {% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/user.css')}}" />
+<link rel="stylesheet" href="{{url_for('static', filename='css/cursos_crud.css')}}" />
+{% endblock %}
+{% block content %}
+<main class="user-main">
+  <div class="user-container">
+    <section class="user-hero">
+      <div class="user-hero-copy">
+        <span class="user-label">CRUD de Matrículas</span>
+        <h1>Gerenciar Matrículas da Plataforma</h1>
+        <p>Registre, visualize e cancele matrículas de usuários em cursos.</p>
+      </div>
+
+      <form class="user-search" method="get" action="{{ url_for('gerenciar_matriculas') }}">
+        <input
+          type="search"
+          name="buscar"
+          value="{{ buscar }}"
+          placeholder="Buscar por aluno ou curso..."
+        />
+        <button type="submit">Buscar</button>
+      </form>
+    </section>
+
+    {% with mensagens = get_flashed_messages() %}
+    {% if mensagens %}
+    <p class="form-erro">{{ mensagens[0] }}</p>
+    {% endif %}
+    {% endwith %}
+
+    {% if matricula_selecionada %}
+    <section class="user-card user-destaque">
+      <div class="card-secao-titulo">
+        <span class="secao-icone">👁</span>
+        <h3>Matrícula selecionada</h3>
+      </div>
+      <div class="user-detalhe curso-detalhe-grid">
+        <p><strong>ID:</strong> {{ matricula_selecionada.id }}</p>
+        <p><strong>Aluno:</strong> {{ matricula_selecionada.usuario.nome }} ({{ matricula_selecionada.usuario.email }})</p>
+        <p><strong>Curso:</strong> {{ matricula_selecionada.curso.titulo }}</p>
+        <p><strong>Categoria:</strong> {{ matricula_selecionada.curso.categoria }}</p>
+        <p><strong>Data da Matrícula:</strong> {{ matricula_selecionada.data_matricula.strftime('%d/%m/%Y %H:%M') }}</p>
+      </div>
+    </section>
+    {% endif %}
+
+    <div class="user-grid">
+      <!-- Formulário de nova matrícula -->
+      <section class="user-card">
+        <div class="card-secao-titulo">
+          <span class="secao-icone">📝</span>
+          <h3>Nova Matrícula</h3>
+        </div>
+
+        <form class="user-form" method="post" action="{{ url_for('salvar_matricula') }}">
+          <div class="form-grd">
+            <div class="form-grp">
+              <label for="user_id">Aluno</label>
+              <select id="user_id" name="user_id" class="form-select">
+                <option value="">Selecione um aluno...</option>
+                {% for u in usuarios %}
+                <option value="{{ u.id }}">{{ u.nome }} — {{ u.email }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-grp">
+              <label for="curso_id">Curso</label>
+              <select id="curso_id" name="curso_id" class="form-select">
+                <option value="">Selecione um curso...</option>
+                {% for c in cursos %}
+                <option value="{{ c.id }}">{{ c.titulo }} ({{ c.categoria }})</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          <div class="salvar-btn-wrapper">
+            <button class="btn-salvar" type="submit">Matricular</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Tabela de matrículas -->
+      <section class="user-card">
+        <div class="card-secao-titulo">
+          <span class="secao-icone">📋</span>
+          <h3>Lista de Matrículas</h3>
+        </div>
+
+        <div class="tabela-wrapper">
+          <table class="tabela-usuarios">
+            <thead>
+              <tr>
+                <th>Aluno</th>
+                <th>Curso</th>
+                <th>Categoria</th>
+                <th>Data</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for m in matriculas %}
+              <tr>
+                <td>{{ m.usuario.nome }}</td>
+                <td>{{ m.curso.titulo }}</td>
+                <td><span class="badge-categoria">{{ m.curso.categoria }}</span></td>
+                <td>{{ m.data_matricula.strftime('%d/%m/%Y') }}</td>
+                <td class="acoes">
+                  <a class="acao-link" href="{{ url_for('mostrar_matricula', id_matricula=m.id) }}">Mostrar</a>
+                  <form method="post" action="{{ url_for('remover_matricula', id_matricula=m.id) }}">
+                    <button class="acao-excluir" type="submit">Cancelar</button>
+                  </form>
+                </td>
+              </tr>
+              {% else %}
+              <tr>
+                <td colspan="5" class="linha-vazia">Nenhuma matrícula encontrada.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+{% endblock %}
